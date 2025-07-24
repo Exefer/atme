@@ -1,0 +1,4 @@
+target/
+static/
+.env
+.env.example

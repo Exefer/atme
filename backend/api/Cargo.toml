@@ -1,0 +1,26 @@
+[package]
+name = "atme-api"
+version = "0.1.0"
+edition = "2024"
+publish = false
+
+[lib]
+name = "atme_api"
+path = "src/lib.rs"
+
+[dependencies]
+atme-service = { path = "../service" }
+migration = { path = "../migration" }
+entity = { path = "../entity" }
+sea-orm = { workspace = true }
+serde = { workspace = true }
+anyhow = "1.0.98"
+axum = { version = "0.8.4", features = ["macros"] }
+dotenvy = "0.15.7"
+mime_guess = "2.0.5"
+rust-embed = "8.7.2"
+tokio = { version = "1.46.1", features = ["macros", "rt-multi-thread"] }
+tower = "0.5.2"
+tower-http = "0.6.6"
+tracing-subscriber = "0.3.19"
+serde_json = { version = "1.0.141" }
