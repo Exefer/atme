@@ -76,30 +76,25 @@ pub async fn start() -> anyhow::Result<()> {
 }
 
 #[derive(Deserialize)]
-struct CreateChargeRecordPayload {
-    start_percentage: i32,
+struct ChargePercentagePayload {
+    charge_percentage: i32,
 }
 
 async fn create_charge_record_handler(
     State(state): State<AppState>,
-    Json(payload): Json<CreateChargeRecordPayload>,
+    Json(payload): Json<ChargePercentagePayload>,
 ) -> (StatusCode, &'static str) {
-    MutationCore::create_charge_record(&state.db, payload.start_percentage)
+    MutationCore::create_charge_record(&state.db, payload.charge_percentage)
         .await
         .unwrap();
     (StatusCode::OK, "Charge record created")
 }
 
-#[derive(Deserialize)]
-struct FinalizeChargeRecordPayload {
-    end_percentage: i32,
-}
-
 async fn finalize_charge_record_handler(
     State(state): State<AppState>,
-    Json(payload): Json<FinalizeChargeRecordPayload>,
+    Json(payload): Json<ChargePercentagePayload>,
 ) -> (StatusCode, &'static str) {
-    if MutationCore::update_last_charge_record(&state.db, payload.end_percentage)
+    if MutationCore::update_last_charge_record(&state.db, payload.charge_percentage)
         .await
         .is_err()
     {
