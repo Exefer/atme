@@ -20,7 +20,12 @@ impl Mutation {
         db: &DbConn,
         end_percentage: i32,
     ) -> Result<charge_records::Model, DbErr> {
-        let charge_record: charge_records::ActiveModel = ChargeRecord::find()
+        let charge_records::ActiveModel {
+            id,
+            start_percentage,
+            start_timestamp,
+            ..
+        } = ChargeRecord::find()
             .order_by_desc(charge_records::Column::Id)
             .one(db)
             .await?
@@ -28,9 +33,9 @@ impl Mutation {
             .into();
 
         charge_records::ActiveModel {
-            id: charge_record.id,
-            start_percentage: charge_record.start_percentage,
-            start_timestamp: charge_record.start_timestamp,
+            id,
+            start_percentage,
+            start_timestamp,
             end_percentage: Set(Some(end_percentage)),
             end_timestamp: Set(Some(chrono::Local::now().naive_local())),
         }
