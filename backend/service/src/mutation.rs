@@ -26,7 +26,7 @@ impl Mutation {
             start_timestamp,
             ..
         } = ChargeRecord::find()
-            .order_by_desc(charge_records::Column::Id)
+            .filter(charge_records::Column::EndTimestamp.is_null())
             .one(db)
             .await?
             .ok_or(DbErr::Custom("Cannot find charge record".to_owned()))?
@@ -37,7 +37,7 @@ impl Mutation {
             start_percentage,
             start_timestamp,
             end_percentage: Set(Some(end_percentage)),
-            end_timestamp: Set(Some(chrono::Local::now().naive_local())),
+            end_timestamp: Set(Some(chrono::Utc::now().into())),
         }
         .update(db)
         .await

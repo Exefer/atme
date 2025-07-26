@@ -18,11 +18,11 @@ impl MigrationTrait for Migration {
                     .if_not_exists()
                     .col(pk_auto(ChargeRecords::Id))
                     .col(
-                        timestamp(ChargeRecords::StartTimestamp)
+                        timestamp_with_time_zone(ChargeRecords::StartTimestamp)
                             .default(Expr::current_timestamp())
                             .not_null(),
                     )
-                    .col(timestamp_null(ChargeRecords::EndTimestamp))
+                    .col(timestamp_with_time_zone_null(ChargeRecords::EndTimestamp))
                     .col(integer(ChargeRecords::StartPercentage).not_null())
                     .col(integer_null(ChargeRecords::EndPercentage))
                     .to_owned(),

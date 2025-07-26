@@ -8,8 +8,8 @@ use serde::{Deserialize, Serialize};
 pub struct Model {
     #[sea_orm(primary_key)]
     pub id: i32,
-    pub start_timestamp: DateTime,
-    pub end_timestamp: Option<DateTime>,
+    pub start_timestamp: DateTimeWithTimeZone,
+    pub end_timestamp: Option<DateTimeWithTimeZone>,
     pub start_percentage: i32,
     pub end_percentage: Option<i32>,
 }
