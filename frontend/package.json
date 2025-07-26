@@ -38,6 +38,7 @@
   },
   "dependencies": {
     "@tanstack/svelte-query": "^5.83.0",
-    "date-fns": "^4.1.0"
+    "date-fns": "^4.1.0",
+    "ky": "^1.8.2"
   }
 }

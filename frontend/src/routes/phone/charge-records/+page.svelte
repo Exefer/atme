@@ -1,5 +1,6 @@
 <script lang="ts">
-  import type { ChargeRecord } from "$lib/types/backend/bindings";
+  import { api } from "$lib/services/api";
+  import type { ChargeRecord } from "$lib/types/backend";
   import { createQuery } from "@tanstack/svelte-query";
   import { derived } from "svelte/store";
   import {
@@ -14,15 +15,10 @@
 
   const query = createQuery<ChargeRecord[]>({
     queryKey: ["phone_charge-records"],
-    queryFn: () => getChargeRecords(),
+    queryFn: () => api.phone.getChargeRecords(),
     initialData: [],
     refetchInterval
   });
-
-  const getChargeRecords = async () => {
-    const response = await fetch("/api/phone/charge-records");
-    return response.json();
-  };
 
   const stats = derived(query, ($query) => {
     return calculateStats($query.data);

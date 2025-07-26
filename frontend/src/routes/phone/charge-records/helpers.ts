@@ -1,4 +1,4 @@
-import type { ChargeRecord } from "$lib/types/backend/bindings";
+import type { ChargeRecord } from "$lib/types/backend";
 import { formatDuration, intervalToDuration } from "date-fns";
 
 export const formatTimestamp = (timestamp: Date | string | null) =>
