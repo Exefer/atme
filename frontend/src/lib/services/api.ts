@@ -9,7 +9,7 @@ const client = ky.create({
 export const api = {
   phone: {
     getChargeRecords() {
-      return client.get("/phone/charge-records").json<ChargeRecord[]>();
+      return client.get("phone/charge-records").json<ChargeRecord[]>();
     }
   }
 };
