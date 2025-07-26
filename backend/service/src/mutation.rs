@@ -1,4 +1,4 @@
-use ::entity::{charge_records, charge_records::Entity as ChargeRecord};
+use ::entity::{charge_records, charge_records::Entity as ChargeRecords};
 use sea_orm::*;
 
 pub struct Mutation;
@@ -25,7 +25,7 @@ impl Mutation {
             start_percentage,
             start_timestamp,
             ..
-        } = ChargeRecord::find()
+        } = ChargeRecords::find()
             .filter(charge_records::Column::EndTimestamp.is_null())
             .one(db)
             .await?
@@ -44,7 +44,7 @@ impl Mutation {
     }
 
     pub async fn delete_charge_record(db: &DbConn, id: i32) -> Result<DeleteResult, DbErr> {
-        let charge_record: charge_records::ActiveModel = ChargeRecord::find_by_id(id)
+        let charge_record: charge_records::ActiveModel = ChargeRecords::find_by_id(id)
             .one(db)
             .await?
             .ok_or(DbErr::Custom("Cannot find charge record".to_owned()))?
