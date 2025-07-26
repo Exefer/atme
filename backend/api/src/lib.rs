@@ -68,7 +68,7 @@ pub async fn start() -> anyhow::Result<()> {
     let addr = SocketAddr::from(([0, 0, 0, 0], 3000));
     let listener = tokio::net::TcpListener::bind(addr).await.unwrap();
 
-    println!("Listening on http://127.0.0.1:3000");
+    println!("Listening on {}", listener.local_addr().unwrap());
 
     axum::serve(listener, app).await?;
 
